@@ -3,7 +3,10 @@ app = express(),
 bodyParser = require("body-parser"),
 methodOverride = require("method-override"),
 morgan = require("morgan"),
-path = require("path");
+path = require("path"),
+db = require("./models"),
+// process.env stores all of api keys
+dotenv = require('dotenv').config();
 
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
