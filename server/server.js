@@ -5,8 +5,10 @@ methodOverride = require("method-override"),
 morgan = require("morgan"),
 path = require("path"),
 db = require("./models"),
-// process.env stores all of api keys
-dotenv = require('dotenv').config();
+env = require("node-env-file"),
+ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
+
+
 
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
@@ -16,6 +18,7 @@ app.use("/css", express.static(path.join(__dirname, "../client/css")));
 app.use("/js", express.static(path.join(__dirname, "../client/js")));
 app.use("/partials", express.static(path.join(__dirname, "../client/views/partials")));
 
+// make an API for api calls?
 app.get("*", function(req,res) {
   res.sendFile(path.join(__dirname, '../client/views', 'index.html'))
 });

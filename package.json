@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^2.0.0"
+    "node-env-file": "^0.1.8"
   }
 }
