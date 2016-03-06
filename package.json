@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-env-file": "^0.1.8"
+    "dotenv": "^2.0.0",
+    "jade": "^1.11.0"
   }
 }
