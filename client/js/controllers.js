@@ -1,15 +1,18 @@
-app.controller("MainCtrl", ['$scope', '$http', function($scope, $http) {
-
+app.controller("MainCtrl", ['$scope', '$http','News', function($scope, $http, News) {
   $scope.obj = {};
-  $scope.search = function() {
-    $http.get("https://gateway-a.watsonplatform.net/calls/data/GetNews?outputMode=json&start=now-1d&end=now&count=5&q.enriched.url.title="+
-              $scope.obj.topic+"&q.enriched.url.enrichedTitle.docSentiment=|type=positive,score=>0.5|&return=enriched.url.url,enriched.url.title", {
-                params: {
-                  apikey: "393a7cfa9df9f3b5be59780348891e80fd8521f3"
-                }
-              })
-    .then(function(response) {
-      $scope.articles = response.data.result.docs;
-    })
-  }
+  var topic = $scope.obj.topic;
+  News.get(function(data) {
+    var result = data.key;
+    
+    $scope.search = function() {
+      $http.get("https://gateway-a.watsonplatform.net/calls/data/GetNews?outputMode=json&start=now-1d&end=now&count=5&q.enriched.url.title="+topic+"&q.enriched.url.enrichedTitle.docSentiment=|type=positive,score=>0.5|&return=enriched.url.url,enriched.url.title", {
+        params: {
+          apikey: result
+        }
+      }).then(function(data) {
+        console.log(data);
+        $scope.articles = data;
+      })
+    }
+  });
 }]);
