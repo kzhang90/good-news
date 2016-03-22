@@ -11,5 +11,14 @@
   "dependencies": {
     "dotenv": "^2.0.0",
     "jade": "^1.11.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kzhang90/good-news.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kzhang90/good-news/issues"
+  },
+  "homepage": "https://github.com/kzhang90/good-news#readme"
 }

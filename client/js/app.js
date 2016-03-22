@@ -7,3 +7,12 @@ app.config(function($routeProvider, $locationProvider){
       }).otherwise({redirectTo: "/"});
   $locationProvider.html5Mode(true);
 });
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 0, lng: 0},
+    // higher zoom number is closer
+    zoom: 6
+  });
+};
