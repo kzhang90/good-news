@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/goodnews-db");
+    mongoose.connect("mongodb://localhost/goodnews-db");
+    mongoose.set("debug", true);
 
-mongoose.set("debug", true);
-
-module.exports.Icecream = require("./user");
+module.exports.User = require("./user");

@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "dotenv": "^2.0.0",
-    "jade": "^1.11.0"
+    "jade": "^1.11.0",
+    "jsonwebtoken": "^5.7.0"
   },
   "devDependencies": {},
   "repository": {
@@ -20,5 +22,6 @@
   "bugs": {
     "url": "https://github.com/kzhang90/good-news/issues"
   },
-  "homepage": "https://github.com/kzhang90/good-news#readme"
+  "homepage": "https://github.com/kzhang90/good-news#readme",
+  "keywords": []
 }

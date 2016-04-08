@@ -1,14 +1,17 @@
-<div class="container">
+<div class="container" ng-controller="MainCtrl">
 
   <div class="row">
   
-  <div class="col-xs-6 text-center">
-    <form ng-submit="search()">
+  <div class="col-xs-6 col-xs-offset-3">
+
+  <div class="text-center">
+    <form ng-submit="someFunction()">
       <label for="topic">Type Anything:</label>
       <input type="text" ng-model="obj.topic" name="topic">
       <input type="submit" id="submit" value="Be Positive">
     </form>
-  
+  </div>
+  <div>{{key}}</div>
   <hr>
 
   <ul>    
@@ -16,16 +19,10 @@
       <div><a href="{{article.source.enriched.url.url}}">{{article.source.enriched.url.title}}</a></div>
     </li>
   </ul>
-  </div>
 
-  <div class="col-xs-6">
-    <div id="map"></div>
-  <!-- sample svg graphic -->
-<!-- <svg width="50" height="50">
-    <circle cx="25" cy="25" r="22"
-     fill="blue" stroke="gray" stroke-width="2"/>
-</svg> -->
-</div>
+
+
+  </div>
 
   </div>
 </div>
