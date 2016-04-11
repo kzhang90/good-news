@@ -25,6 +25,7 @@ app.use('/js', express.static(path.join(__dirname, '../client/js')));
 app.use('/partials', express.static(path.join(__dirname, '../client/views/partials')));
 app.use('/api', apiRoutes);
 
+// give a token that will expire if user matches
 apiRoutes.post('/authenticate', function(req, res) {
   db.User.findOne({
     name: req.body.name
@@ -51,9 +52,9 @@ apiRoutes.post('/authenticate', function(req, res) {
     }
   });
 });
-
 // all routes below here will check for the authenticity of the JWT
 // below is saying "use this middleware for these routes"
+// checks for token on every request
 apiRoutes.use(function(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -77,9 +78,7 @@ apiRoutes.use(function(req, res, next) {
   }
 });
 
-apiRoutes.get('/', function(req, res) {
-  res.json({ message: 'Welcome to the coolest API on earth!' });
-});
+
 
 apiRoutes.get('/users', function(req, res) {
   db.User.find({}, function(err, users) {
