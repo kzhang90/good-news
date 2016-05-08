@@ -20,3 +20,7 @@ app.controller('MainCtrl', ['$scope','$http','keyGetter','articleFinder', functi
   }
 
 }]);
+
+app.controller('RegisCtrl', ['$scope', '$http', function($scope, $http) {
+  // register here;
+}]);

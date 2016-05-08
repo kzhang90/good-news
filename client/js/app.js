@@ -4,6 +4,8 @@ app.config(function($routeProvider, $locationProvider){
       .when("/", {
         templateUrl: "partials/home.html",
         controller: "MainCtrl"
+      }).when('/register', {
+        templateUrl: 'a'
       }).otherwise({redirectTo: "/"});
 
   $locationProvider.html5Mode(true);

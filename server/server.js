@@ -41,8 +41,7 @@ apiRoutes.post('/authenticate', function(req, res) {
         // jwt.sign(payload, secretOrPrivateKey, options, [callback])
         var token = jwt.sign(user, app.get('superSecret'), {
           expiresIn: '2days'
-        });
-
+        });f
         res.json({
           success: true,
           message: 'Here is your token.',
