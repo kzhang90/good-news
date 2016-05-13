@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
 // saving user pswrd is bad because of db hax
 var userSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true},
@@ -9,7 +10,6 @@ var userSchema = new mongoose.Schema({
   hash: String,
   salt: String
 });
-
 // instance methods below. 
 // use this method when creating a user
 userSchema.methods.setPassword = function(password) {

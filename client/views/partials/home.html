@@ -15,7 +15,10 @@
 
   <ul>    
     <li ng-repeat="article in articles">
-      <div><a href="{{article.source.enriched.url.url}}">{{article.source.enriched.url.title}}</a></div>
+      <div>
+      <a href="{{article.source.enriched.url.url}}">{{article.source.enriched.url.title}}</a>
+      <!-- add 'go to' and 'summary' buttons -->
+      </div>
     </li>
   </ul>
 

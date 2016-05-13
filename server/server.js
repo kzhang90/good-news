@@ -1,11 +1,18 @@
 var express = require('express');
 var app = express();
+var path = require('path');
+var favicon = require('serve-favicon');
 
-var bodyParser = require('body-parser');
+
 var methodOverride = require('method-override');
 var morgan = require('morgan');
-var path = require('path');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var passport = require('passport');
+
 var db = require('./models');
+// http://www.sitepoint.com/user-authentication-mean-stack/
+require('./config/passport');
 var env = require('dotenv').config();
 var jwt = require('jsonwebtoken');
 var ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
@@ -23,6 +30,8 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use('/css', express.static(path.join(__dirname, '../client/css')));
 app.use('/js', express.static(path.join(__dirname, '../client/js')));
 app.use('/partials', express.static(path.join(__dirname, '../client/views/partials')));
+
+app.use(passport.initialize());
 app.use('/api', apiRoutes);
 
 // give a token that will expire if user matches
@@ -91,7 +100,7 @@ apiRoutes.get('/users', function(req, res) {
 //  the encoded payload, a secret, the algorithm specified in the header, and sign that.
 
 
-app.get('/a', function(req, res) {
+app.get('/key', function(req, res) {
   res.json({key: ALCHEMY_API_KEY});
 });
 

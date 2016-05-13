@@ -1,7 +1,7 @@
 app.factory('keyGetter', ['$http', function($http) {
   return {
     findKey: function() {
-      return $http.get('/a').then(function(response) {
+      return $http.get('/key').then(function(response) {
         return response;
       });
     }
