@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
+require('dotenv').config();
 // saving user pswrd is bad because of db hax
 var userSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true},
@@ -30,7 +31,7 @@ userSchema.methods.generateJwt = function() {
     name: this.name,
     // set secret as an environment variable.
     exp: parseInt(expiry.getTime() / 1000),
-  }, 'hide_this_secret');
+  }, process.env.MY_SECRET);
 }
 
 module.exports = mongoose.model('User', userSchema);

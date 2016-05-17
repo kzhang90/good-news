@@ -1,3 +1,5 @@
+// using user model, what to send back etc.
+
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
@@ -23,7 +25,7 @@ module.exports.register = function(req, res) {
 }
 
 module.exports.login = function(req, res) {
-
+// add clientside validations here
   passport.authenticate('local', function(err, user, info) {
     if (err) {
       res.status(404).json(err);

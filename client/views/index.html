@@ -12,13 +12,15 @@
 <body>
 <!-- nav bar -->
   <nav id="mainNav" class="navbar navbar-inverse navbar-static-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Good News</a>
-      </div>
+      <ul class="navbar-header">
+        <li><a class="navbar-brand" href="#">Good News</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-hide="vm.isLoggedIn"><a href="login">Sign In</a></li>
+        <li ng-hide="vm.isLoggedIn"><a href="register">Sign Up</a></li>
+        <li ng-show="vm.isLoggedIn"><a href="profile">{{ vm.currentUser.name }}</a></li>
+      </ul>
 
-<!--  -->
-    </div>
   </nav>
 <!-- main page -->
   <h1 class="text-center">When all we see is bad news.</h1>

@@ -1,3 +1,5 @@
+// database checking 
+
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
@@ -27,4 +29,4 @@ passport.use(new LocalStrategy({
       return done(null, user);
     })
   }
-)
+));

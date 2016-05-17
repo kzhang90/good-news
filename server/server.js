@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+
 var path = require('path');
 var favicon = require('serve-favicon');
 
@@ -10,16 +11,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
-var db = require('./models');
-// http://www.sitepoint.com/user-authentication-mean-stack/
+// bring in models
+require('./models');
+// bring in passport config
 require('./config/passport');
-var env = require('dotenv').config();
-var jwt = require('jsonwebtoken');
-var ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
+require('dotenv').config();
 
-var apiRoutes = express.Router();
-// add /api prefix to all of apiRoutes
-
+var routesApi = require('./routes/index');
 
 app.set('superSecret', 'teehee');
 app.set('view engine', 'jade');
@@ -30,78 +28,20 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use('/css', express.static(path.join(__dirname, '../client/css')));
 app.use('/js', express.static(path.join(__dirname, '../client/js')));
 app.use('/partials', express.static(path.join(__dirname, '../client/views/partials')));
-
+// initialize passport before using the route middleware
 app.use(passport.initialize());
-app.use('/api', apiRoutes);
+app.use('/api', routesApi)
 
-// give a token that will expire if user matches
-apiRoutes.post('/authenticate', function(req, res) {
-  db.User.findOne({
-    name: req.body.name
-  }, function(err, user) {
-    if (err) throw err;
-
-    if (!user) {
-      res.json({ success: false, message: 'Authentication failed. User not found.' });
-    } else if (user) {
-      if (user.password != req.body.password) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-      } else {
-        // jwt.sign(payload, secretOrPrivateKey, options, [callback])
-        var token = jwt.sign(user, app.get('superSecret'), {
-          expiresIn: '2days'
-        });f
-        res.json({
-          success: true,
-          message: 'Here is your token.',
-          token: token
-        });
-      }
-    }
-  });
-});
-// all routes below here will check for the authenticity of the JWT
-// below is saying "use this middleware for these routes"
-// checks for token on every request
-apiRoutes.use(function(req, res, next) {
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-  if (token) {
-    jwt.verify(token, app.get('superSecret'), function(err, decoded) {
-      if (err) {
-        return res.json({
-          success: false,
-          message: 'Failed to authenticate'
-        });
-      } else {
-        req.decoded = decoded;
-        next();
-      }
-    });
-  } else {
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    });
+//catch errors
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({'message': err.name + ': ' + err.message});
   }
 });
 
-
-
-apiRoutes.get('/users', function(req, res) {
-  db.User.find({}, function(err, users) {
-    res.json(users);
-  });
-});
-// jwt header consists of type of token(jwt), hashing algorithm used, such as HMAC SHA256
-// jwt payload
-
-// To create the signature part you have to take the encoded header, 
-//  the encoded payload, a secret, the algorithm specified in the header, and sign that.
-
-
 app.get('/key', function(req, res) {
-  res.json({key: ALCHEMY_API_KEY});
+  res.json({key: process.env.ALCHEMY_API_KEY});
 });
 
 app.get('*', function(req, res) {
@@ -110,6 +50,7 @@ app.get('*', function(req, res) {
 
 var PORT = 3001;
 app.listen(PORT, function() {
-
   console.log('listening on localhost:', PORT)
 });
+
+module.exports = app;
