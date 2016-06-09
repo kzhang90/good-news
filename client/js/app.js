@@ -1,6 +1,7 @@
 var app = angular.module('goodNews', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider){
+  console.log('in the config');
     $routeProvider
       .when('/', {
         templateUrl: 'partials/home.html',
@@ -23,17 +24,14 @@ app.config(function($routeProvider, $locationProvider){
         controllerAs: 'vm'
       })
       .otherwise({redirectTo: '/'});
-
   $locationProvider.html5Mode(true);
-  function run($rootScope, $location, authentication) {
-    $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-      if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
-        $location.path('/');
-      }
-    });
-  }
+});
 
-// is the below correct?
-// run functionality:
-  // if an unauth user tries to visit the profile page, they will be redirected to the homepage.
-}).run(['$rootScope', '$location', 'authentication', run]);
+app.run(function($rootScope, $location, authentication) {
+  console.log('in the run');
+  $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+    if ($location.path() == '/profile' && !authentication.isLoggedIn()) {
+      $location.path('/');
+    }
+  });
+});

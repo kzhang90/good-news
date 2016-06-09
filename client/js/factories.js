@@ -38,13 +38,12 @@ app.factory('authentication', ['$http', '$window', function($http, $window) {
     saveToken: function(token) {
       $window.localStorage['mean-token'] = token;
     },
-    getToken: function() {
+    // getToken not defined
+    getToken:  function() {
       return $window.localStorage['mean-token'];
     },
     isLoggedIn: function() {
-      // call getToken and read the mean-token
-      // if exists, validate that the JWT has not expired.
-      var token = getToken();
+      var token = this.getToken();
       var payload;
 
       if (token) {
@@ -57,8 +56,8 @@ app.factory('authentication', ['$http', '$window', function($http, $window) {
       }
     },
     currentUser: function() {
-      if (isLoggedIn()) {
-        var token = getToken();
+      if (this.isLoggedIn()) {
+        var token = this.getToken();
         var payload = token.split('.')[1];
         payload = $window.atob(payload);
         payload = JSON.parse(payload);
@@ -80,7 +79,7 @@ app.factory('meanData', ['$http', 'authentication', function($http, authenticati
     getProfile: function() {
       return $http.get('/api/profile', {
         headers: {
-          Authorization: 'Bearer ' + authentication.getToken();
+          Authorization: 'Bearer ' + authentication.getToken()
         }
       });
     }

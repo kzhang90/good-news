@@ -1,9 +1,7 @@
 // using user model, what to send back etc.
-
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-
 // code needs error traps
 // validate form inputs
 // catch errors in the save function

@@ -11,9 +11,6 @@ app.controller('mainController', ['$scope','$http','keyGetter','articleFinder', 
   $scope.someFunction = function() {
     var topic = $scope.obj.topic;
     var key = $scope.key;
-    console.log(topic);
-    console.log(url);
-    console.log(key);
     news(url,topic,key).then(function(data) {
       $scope.articles = data.data.result.docs;
     });
@@ -64,7 +61,6 @@ app.controller('profileController', ['$location', 'meanData', function($location
     .success(function(data) {
       vm.user = data;
     })
-    // if cant get profile due to token not being correct
     .error(function(e) {
       console.log(e);
     });
